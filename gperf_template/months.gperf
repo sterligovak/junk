@@ -1,0 +1,37 @@
+%{
+#include <stdio.h>
+#include <string.h>
+%}
+%define class-name MonthsHashTable
+%struct-type
+struct month { char *name; int number; int days; int leap_days; };
+%%
+january,   1, 31, 31
+february,  2, 28, 29
+march,     3, 31, 31
+april,     4, 30, 30
+may,       5, 31, 31
+june,      6, 30, 30
+july,      7, 31, 31
+august,    8, 31, 31
+september, 9, 30, 30
+october,  10, 31, 31
+november, 11, 30, 30
+december, 12, 31, 31
+%%
+int main()
+{
+	char buf[BUFSIZ];
+	while (gets(buf)) {
+		const month *p = MonthsHashTable::in_word_set(buf, strlen (buf));
+		if ( p )
+		{
+			printf ("%s is a month number %i\n", p->name, p->number );
+		}
+		else
+		{
+			printf( "%s is not a month\n", buf );
+		}
+	}
+	return 0;	
+}
